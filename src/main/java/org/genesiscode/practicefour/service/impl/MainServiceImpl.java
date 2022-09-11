@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class MainServiceImpl implements MainService {
 
     @Override
-    public ResponseDTO<MultiplicativeResponseDTO> multiplicative() {
+    public ResponseDTO<MultiplicativeResponseDTO> multiplicative(Integer seed, Integer multiplicativeConstant, Integer module) {
         log.info("multiplicative returns with successfully");
         return new ResponseDTO<>();
     }

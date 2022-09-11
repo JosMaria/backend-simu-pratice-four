@@ -5,5 +5,5 @@ import org.genesiscode.practicefour.dto.ResponseDTO;
 
 public interface MainService {
 
-    ResponseDTO<MultiplicativeResponseDTO> multiplicative();
+    ResponseDTO<MultiplicativeResponseDTO> multiplicative(Integer seed, Integer multiplicativeConstant, Integer module);
 }

@@ -5,10 +5,7 @@ import org.genesiscode.practicefour.dto.MultiplicativeResponseDTO;
 import org.genesiscode.practicefour.dto.ResponseDTO;
 import org.genesiscode.practicefour.service.MainService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RequiredArgsConstructor
@@ -19,7 +16,10 @@ public class MainController {
     private final MainService mainService;
 
     @GetMapping("/multiplicative")
-    public ResponseEntity<ResponseDTO<MultiplicativeResponseDTO>> multiplicative() {
-        return ResponseEntity.ok(mainService.multiplicative());
+    public ResponseEntity<ResponseDTO<MultiplicativeResponseDTO>> multiplicative(
+            @RequestParam Integer seed,
+            @RequestParam("multiplicative") Integer multiplicativeConstant,
+            @RequestParam Integer module) {
+        return ResponseEntity.ok(mainService.multiplicative(seed, multiplicativeConstant, module));
     }
 }
