@@ -1,6 +1,7 @@
 package org.genesiscode.practicefour.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.genesiscode.practicefour.dto.MultiplicativeBinaryResponseDTO;
 import org.genesiscode.practicefour.dto.MultiplicativeResponseDTO;
 import org.genesiscode.practicefour.dto.ResponseDTO;
 import org.genesiscode.practicefour.service.MainService;
@@ -21,5 +22,13 @@ public class MainController {
             @RequestParam("multiplicative") Integer multiplicativeConstant,
             @RequestParam Integer module) {
         return ResponseEntity.ok(mainService.multiplicative(seed, multiplicativeConstant, module));
+    }
+
+    @GetMapping("/multiplicative/binary")
+    public ResponseEntity<ResponseDTO<MultiplicativeBinaryResponseDTO>> multiplicativeBinary(
+            @RequestParam Integer seed,
+            @RequestParam("multiplicative") Integer multiplicativeConstant,
+            @RequestParam Integer module) {
+        return ResponseEntity.ok(mainService.multiplicativeBinary(seed, multiplicativeConstant, module));
     }
 }
