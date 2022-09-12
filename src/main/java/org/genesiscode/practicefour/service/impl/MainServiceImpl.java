@@ -1,6 +1,7 @@
 package org.genesiscode.practicefour.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.genesiscode.practicefour.dto.MixedResponseDTO;
 import org.genesiscode.practicefour.dto.MultiplicativeBinaryResponseDTO;
 import org.genesiscode.practicefour.dto.MultiplicativeResponseDTO;
 import org.genesiscode.practicefour.dto.ResponseDTO;
@@ -14,6 +15,41 @@ import java.util.List;
 @Slf4j
 @Service
 public class MainServiceImpl implements MainService {
+
+    @Override
+    public ResponseDTO<MixedResponseDTO> mixed(Integer seed, Integer multiplicativeConstant, Integer additiveConstant, Integer module) {
+        List<MixedResponseDTO> list = new ArrayList<>();
+        int seedTemp = seed;
+        boolean isFirstIteration = true, isRepeat = false;
+        MixedResponseDTO firstRow = null;
+
+        for (int i = 0; i <= module && !isRepeat; i++) {
+            int valueTwo = multiplicativeConstant * seedTemp;
+            int valueThree = valueTwo + additiveConstant;
+            int valueFour = valueThree % module;
+            String valueFive = valueFour == 0 ? String.valueOf(valueFour) : String.format("%s/%s", valueFour, module);
+            MixedResponseDTO row = new MixedResponseDTO(i + 1, seedTemp, valueTwo, valueThree, valueFour, valueFive);
+            if (isFirstIteration) {
+                firstRow = row;
+            } else {
+                isRepeat = firstRow.equals(row);
+            }
+            isFirstIteration = false;
+            list.add(row);
+            seedTemp = valueFour;
+        }
+        return new ResponseDTO<>(list, messagesMixed(additiveConstant, module, list.size()));
+    }
+
+    private List<String> messagesMixed(int additiveConstant, int module, int sizeList) {
+        List<String> messages = new ArrayList<>();
+        if (!Operations.areRelativelyPrime(additiveConstant, module)) {
+            messages.add(String.format("Constante Aditiva: %s no es relativamente primo al Modulo: %s", additiveConstant, module));
+        }
+        String message = (sizeList - 1 < module) ? "NO CUMPLE UN PERIODO COMPLETO" : "PERIODO COMPLETO";
+        messages.add(message);
+        return messages;
+    }
 
     @Override
     public ResponseDTO<MultiplicativeResponseDTO> multiplicative(final Integer seed, final Integer multiplicativeConstant, final Integer module) {
