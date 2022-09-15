@@ -38,13 +38,14 @@ public class MainServiceImpl implements MainService {
             list.add(row);
             seedTemp = valueFour;
         }
+        log.info("mixed returns with successfully");
         return new ResponseDTO<>(list, messagesMixed(additiveConstant, module, list.size()));
     }
 
     private List<String> messagesMixed(int additiveConstant, int module, int sizeList) {
         List<String> messages = new ArrayList<>();
         if (!Operations.areRelativelyPrime(additiveConstant, module)) {
-            messages.add(String.format("Constante Aditiva: %s no es relativamente primo al Modulo: %s", additiveConstant, module));
+            messages.add(String.format("Warning: Constante Aditiva: %s no es relativamente primo al Modulo: %s", additiveConstant, module));
         }
         String message = (sizeList - 1 < module) ? "NO CUMPLE UN PERIODO COMPLETO" : "PERIODO COMPLETO";
         messages.add(message);
