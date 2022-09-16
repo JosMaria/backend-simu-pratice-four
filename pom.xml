@@ -53,6 +53,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>taller-simulation-practice-four</finalName>
 	</build>
 
 </project>
